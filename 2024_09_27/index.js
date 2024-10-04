@@ -1,4 +1,4 @@
-import { select , csv, scaleBand, scaleLinear, axisBottom, axisLeft, image} from 'd3';
+import { select , scaleBand, axisBottom, axisLeft, scaleSequential, interpolateInferno, interpolateRainbow} from 'd3';
 
 const svg = select('#app')
   .append('svg')
@@ -19,15 +19,39 @@ const g_y_axis = svg.append('g')
   .call(axisLeft(y_axis));
 
 const data = [
-  { 'x' :0, 'y':0, 'z':10 },
-  { 'x' :0, 'y':1, 'z':10 },
-  { 'x' :0, 'y':2, 'z':10 },
-  { 'x' :1, 'y':0, 'z':10 },
-  { 'x' :1, 'y':1, 'z':10 },
-  { 'x' :1, 'y':2, 'z':10 },
-  { 'x' :2, 'y':0, 'z':10 },
-  { 'x' :2, 'y':1, 'z':10 },
-  { 'x' :2, 'y':2, 'z':10 },
+  { 'x' :0, 'y':0, 'z':0 },
+  { 'x' :0, 'y':1, 'z':1 },
+  { 'x' :0, 'y':2, 'z':2 },
+  { 'x' :1, 'y':0, 'z':3 },
+  { 'x' :1, 'y':1, 'z':4 },
+  { 'x' :1, 'y':2, 'z':5 },
+  { 'x' :2, 'y':0, 'z':6 },
+  { 'x' :2, 'y':1, 'z':7 },
+  { 'x' :2, 'y':2, 'z':8 },
 ];
 
+const drawRect = (w, h, x, y, color, svg) => {
+  const rect = svg.append("rect");
+  rect.attr("width", w);
+  rect.attr("height", h);
+  rect.attr("x", x);
+  rect.attr("y", y);
+  rect.attr("rx", 4),
+  rect.attr("ry", 4),
+  rect.attr("fill", color);
+};
+
+const colorScale = scaleSequential()
+                  .interpolator(interpolateRainbow)
+                  .domain([0,10]);
+
+data.forEach( (value) => {
+  console.log(value.x, value.y, value.z);
+  drawRect(x_axis.bandwidth(), 
+          y_axis.bandwidth(), 
+          50 + value.x * x_axis.bandwidth(), 
+          100 - value.y * y_axis.bandwidth()- y_axis.bandwidth(), 
+          colorScale(value.z), 
+          svg);
+});
 
