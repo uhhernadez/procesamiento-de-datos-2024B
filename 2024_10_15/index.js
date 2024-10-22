@@ -16,17 +16,21 @@ const color = scaleOrdinal()
 const pieObj = pie()
   .value(function(d) {return d[1]});
 const data_ready = pieObj(Object.entries(data));
-console.log(data_ready);
+//console.log(data_ready);
 
-const arcObj = arc()
-  .innerRadius(0)
-  .outerRadius(100)
-  .startAngle(0)
-  .endAngle(Math.PI / 2);
+data_ready.forEach((data,index)=>{
+  const arcObj = arc()
+    .innerRadius(0)
+    .outerRadius(90)
+    .startAngle(data.startAngle)
+    .endAngle(data.endAngle);
 
-svg.append('path')
-  .attr('d',arcObj)
-  .attr("fill", "pink")
-  .attr("stroke", "gray")
-  .attr("stroke-width", 1);
+  svg.append('path')
+    .attr('d',arcObj)
+    .attr("fill", color(index))
+    .attr("stroke", "black")
+    .attr("stroke-width", 1);
+});
 
+/*
+*/
