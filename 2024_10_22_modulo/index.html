@@ -1,10 +1,11 @@
 <html>
   <head>
-    <title>Gráfica de pastel</title>
+    <title>Modulo</title>
     <script type="importmap" >
     {
       "imports": {
-        "d3": "https://unpkg.com/d3@7.9.0/src/index.js?module"
+        "d3": "https://unpkg.com/d3@7.9.0/src/index.js?module",
+        "drawUtils" : "./utils/draw.js?module" 
       }
     } 
     </script>
@@ -12,8 +13,7 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   </head>
   <body>
-      <div id="grafica1"></div>
-      <div id="grafica2"></div>
+      <div id="draw"></div>
   </body>
   <script type="module" src="index.js"  type="text/babel"></script>
 </html>
