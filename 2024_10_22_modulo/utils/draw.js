@@ -12,36 +12,45 @@ export const drawRect = (w, h, x, y, color, svg) => {
 };
 
 export const drawImage = (w, h, x, y, link, svg) => {
-  const img = svg.append('image');
-  img.attr('x',x);
-  img.attr('y',y);
-  img.attr('width',w);
-  img.attr('height',h);
-  img.attr('href', link);
-}
+  const img = svg.append("image");
+  img.attr("x", x);
+  img.attr("y", y);
+  img.attr("width", w);
+  img.attr("height", h);
+  img.attr("href", link);
+};
+const url = "https://upload.wikimedia.org/wikipedia/commons/0/06/Skull_and_Crossbones.svg";
 
+export const drawBarchart = (data, svg) => {
+  let keys = Object.keys(data);
+  let x_axis = scaleBand(keys, [0, 100]);
+  const g_x_axis = svg
+    .append("g")
+    .attr("transform", "translate(" + 50 + "," + 100 + ")")
+    .call(axisBottom(x_axis));
 
-export const drawBarchart = () => {
+  g_x_axis
+    .selectAll("text")
+    .attr("transform", "translate(-10,0)rotate(-40)")
+    .style("text-anchor", "end");
 
-let x_axis = scaleBand(keys, [0, 100]);
-const g_x_axis = svg.append('g')
-  .attr('transform', "translate("+ 50 +","+100+")")
-  .call(axisBottom(x_axis));
+  let y_axis = scaleLinear([0, 100], [100, 0]);
+  const g_y_axis = svg
+    .append("g")
+    .attr("transform", "translate(50, 0)")
+    .call(axisLeft(y_axis));
 
-g_x_axis.selectAll("text")
-  .attr("transform", "translate(-10,0)rotate(-40)")
-  .style("text-anchor", "end");
-
-let y_axis = scaleLinear([0, 100],[100, 0]);
-const g_y_axis = svg.append('g')
-  .attr('transform', 'translate(50, 0)')
-  .call(axisLeft(y_axis));
-
-
-let values = Object.values(data);
-Object.keys(data).forEach( (ciudad,index) => {
-  console.log(x_axis(ciudad));
-  drawRect(10, values[index],55 + x_axis(ciudad), 100-values[index], '#CD4444FF', svg);  
-  drawImage(10, 10, 55 + x_axis(ciudad), 90-values[index]);
-});
-}
+  let values = Object.values(data);
+  Object.keys(data).forEach((ciudad, index) => {
+    console.log(x_axis(ciudad));
+    drawRect(
+      10,
+      values[index],
+      55 + x_axis(ciudad),
+      100 - values[index],
+      "#CD4444FF",
+      svg
+    );
+    drawImage(10, 10, 55 + x_axis(ciudad), 90 - values[index], url ,svg);
+  });
+};

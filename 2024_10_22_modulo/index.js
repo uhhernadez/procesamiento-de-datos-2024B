@@ -1,5 +1,5 @@
 import { select } from "d3";
-import { drawRect } from "drawUtils";
+import { drawRect, drawBarchart} from "drawUtils";
 
 const svg = select("#draw")
             .append("svg")
@@ -14,5 +14,5 @@ const data = {
   "Valle de Santiago": 18
 };
 
-
-drawRect(100,50, 100,10,"#E32222FF",svg);
+drawBarchart(data, svg);
+//drawRect(100,50, 100,10,"#E32222FF",svg);
